@@ -1,4 +1,4 @@
 package com.example.alocacaoimovel.repository;
 
-public class LocalizacaoRepository {
+public interface ImovelRepository {
 }

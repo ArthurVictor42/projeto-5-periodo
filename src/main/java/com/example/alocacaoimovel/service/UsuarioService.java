@@ -1,4 +1,8 @@
 package com.example.alocacaoimovel.service;
 
-public class UsuarioService {
+import com.example.alocacaoimovel.dto.UsuarioRequest;
+
+public interface UsuarioService {
+
+    void cadastrarUsuario(UsuarioRequest usuario);
 }

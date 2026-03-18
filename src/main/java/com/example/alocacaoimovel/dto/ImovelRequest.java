@@ -1,4 +1,4 @@
 package com.example.alocacaoimovel.dto;
 
-public class NegociacaoRequest {
+public record ImovelRequest() {
 }

@@ -1,4 +1,5 @@
 package com.example.alocacaoimovel.dto;
 
-public class UsuarioRequest {
+public record UsuarioRequest(String email, String senha) {
+
 }
