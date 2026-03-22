@@ -16,5 +16,5 @@ public class Localizacao {
     private String cidade;
     private String bairro;
     private String regiao;
-    private String proximidade;
+    private String proximidadepraia;
 }

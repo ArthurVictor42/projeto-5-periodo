@@ -1,6 +1,7 @@
 package com.example.alocacaoimovel.controller;
 
 
+import com.example.alocacaoimovel.dto.UsuarioCadastroRequest;
 import com.example.alocacaoimovel.dto.UsuarioRequest;
 import com.example.alocacaoimovel.service.UsuarioService;
 import org.springframework.http.HttpStatus;
@@ -14,14 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/usuario")
 public class UsuarioController {
 
-    UsuarioService usuarioService;
+    private final UsuarioService usuarioService;
 
     public UsuarioController(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
 
     @PostMapping("/cadastro")
-    public ResponseEntity<Void> cadastrarUsuario(@RequestBody UsuarioRequest usuario) {
+    public ResponseEntity<Void> cadastrarUsuario(@RequestBody UsuarioCadastroRequest usuario) {
         usuarioService.cadastrarUsuario(usuario);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -29,7 +30,7 @@ public class UsuarioController {
 
     @PostMapping("/login")
     public ResponseEntity<Void> loginUsuario(@RequestBody UsuarioRequest usuario) {
-
+        usuarioService.realizarLogin(usuario);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

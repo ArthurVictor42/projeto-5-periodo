@@ -10,7 +10,5 @@ public class AlocacaoImovelApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(AlocacaoImovelApplication.class, args);
-
     }
-
 }
