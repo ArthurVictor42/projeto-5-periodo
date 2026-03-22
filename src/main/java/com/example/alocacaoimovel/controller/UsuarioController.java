@@ -3,6 +3,7 @@ package com.example.alocacaoimovel.controller;
 
 import com.example.alocacaoimovel.dto.UsuarioCadastroRequest;
 import com.example.alocacaoimovel.dto.UsuarioRequest;
+import com.example.alocacaoimovel.model.Usuario;
 import com.example.alocacaoimovel.service.UsuarioService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,5 +34,4 @@ public class UsuarioController {
         usuarioService.realizarLogin(usuario);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }
