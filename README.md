@@ -78,5 +78,4 @@ Este projeto proporcionou experiência prática no desenvolvimento de APIs e int
 
 ## 👨‍💻 Autor
 
-Arthur Victor & Wemerson Matheus
-Desenvolvedor Back-end & Desenvolvedor Front-end
+Arthur Victor (Desenvolvedor Back-end) & Wemerson Matheus (Desenvolvedor Front-end)
