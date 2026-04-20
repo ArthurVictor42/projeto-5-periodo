@@ -19,8 +19,16 @@ public class Localizacao {
     @Column(name = "id_localizacao")
     private Long idLocalizacao;
 
+    @Column(name = "cidade")
     private String cidade;
+
+    @Column(name = "bairro")
     private String bairro;
+
+    @Column(name = "regiao")
     private String regiao;
+
+    @Column(name = "proximidade")
     private String proximidadepraia;
+
 }

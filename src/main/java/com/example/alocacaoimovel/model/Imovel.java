@@ -20,4 +20,17 @@ public class Imovel {
     @Column(name = "id_imovel")
     private Long idImovel;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_localizacao")
+    private Localizacao localizacao;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_caracteristica")
+    private CaracteristicaImovel  caracteristicaImovel;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_negociacao")
+    private Negociacao negociacao;
+
+
 }

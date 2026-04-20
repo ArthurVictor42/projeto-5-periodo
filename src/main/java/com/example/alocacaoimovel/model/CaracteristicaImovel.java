@@ -19,14 +19,37 @@ public class CaracteristicaImovel {
     @Column(name = "id_caracteristica")
     private Long idCaracteristica;
 
-    private Double metragem;
-    private Integer vagasGaragens;
-    private Integer numerosSalas;
-    private Integer numerosQuartos;
-    private Integer numerosBanheiros;
+    @Column(name = "metragem")
+    private String metragem;
+
+    @Column(name = "vagas_garagens")
+    private int vagasGaragens;
+
+    @Column(name = "numeros_suite")
+    private int numerosSuite;
+
+    @Column(name = "numeros_salas")
+    private int numerosSalas;
+
+    @Column(name = "numeros_quartos")
+    private int numerosQuartos;
+
+    @Column(name = "numeros_banheiros")
+    private int numerosBanheiros;
+
+    @Column(name = "possui_piscina")
     private String possuiPiscina;
+
+    @Column(name = "possui_area_gourmet")
     private String possuiAreaGourmet;
+
+    @Column(name = "tipo_imovel")
     private String tipoImovel;
-    private Integer idadeImovel;
+
+    @Column(name = "idade_imovel")
+    private int idadeImovel;
+
+    @Column(name = "estado_conservacao")
     private String estadoConservacao;
+
 }

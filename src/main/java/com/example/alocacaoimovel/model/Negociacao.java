@@ -19,7 +19,12 @@ public class Negociacao {
     @Column(name = "id_negociacao")
     private Long idNegociacao;
 
+    @Column(name = "finalidade")
     private String finalidade;
+
+    @Column(name = "condominio")
     private String condominio;
+
+    @Column(name = "valor")
     private Double valor;
 }

@@ -1,4 +1,7 @@
 package com.example.alocacaoimovel.repository;
 
-public interface ImovelRepository {
+import com.example.alocacaoimovel.model.Imovel;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ImovelRepository extends JpaRepository<Imovel, Long> {
 }
