@@ -8,6 +8,7 @@ import com.example.alocacaoimovel.service.UsuarioService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -41,10 +42,14 @@ public class UsuarioServiceImp implements UsuarioService {
         }
 
         Usuario user = new Usuario();
+
         user.setEmail(usuario.email());
 
         String senhaCriptografada = passwordEncoder.encode(usuario.senha());
+
         user.setSenha(senhaCriptografada);
+
+        user.setDataCadastro(LocalDateTime.now());
 
         usuarioRepository.save(user);
     }

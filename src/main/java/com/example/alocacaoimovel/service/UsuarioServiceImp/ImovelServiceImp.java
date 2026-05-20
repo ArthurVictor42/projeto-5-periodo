@@ -13,6 +13,7 @@ import java.util.List;
 public class ImovelServiceImp implements ImovelService {
 
     private final ImovelRepository imovelRepository;
+    private static final int SCORE_MAXIMO = 115;
 
     public ImovelServiceImp(ImovelRepository imovelRepository) {
         this.imovelRepository = imovelRepository;
@@ -21,9 +22,11 @@ public class ImovelServiceImp implements ImovelService {
     @Override
     public List<Imovel> buscarImovel(ImovelRequest buscar) {
 
+        long inicioBusca = System.currentTimeMillis();
+
         List<Imovel> imoveis = imovelRepository.findAll();
 
-        return imoveis.stream()
+        List<Imovel> recomendados = imoveis.stream()
 
                 .filter(i ->
                         buscar.finalidade() == null ||
@@ -51,11 +54,23 @@ public class ImovelServiceImp implements ImovelService {
 
                 .sorted(
                         Comparator.comparingInt(
-                                (Imovel i) -> calcularPontuacao(i, buscar)
+                                (Imovel i) ->
+                                        calcularPontuacao(i, buscar)
                         ).reversed()
                 )
 
                 .toList();
+
+        long fimBusca = System.currentTimeMillis();
+
+        imprimirMetricas(
+                imoveis,
+                recomendados,
+                buscar,
+                fimBusca - inicioBusca
+        );
+
+        return recomendados;
     }
 
     private int calcularPontuacao(Imovel imovel, ImovelRequest buscar) {
@@ -173,6 +188,60 @@ public class ImovelServiceImp implements ImovelService {
         return pontos;
     }
 
+    private void imprimirMetricas(List<Imovel> total,  List<Imovel> recomendados, ImovelRequest buscar, long tempoBusca) {
+
+        int totalImoveis = total.size();
+
+        int encontrados = recomendados.size();
+
+        double cobertura =
+                totalImoveis == 0
+                        ? 0
+                        : (encontrados * 100.0)
+                        / totalImoveis;
+
+        double scoreMedio =
+                recomendados.stream().mapToInt(i -> calcularPontuacao(i, buscar)).average().orElse(0);
+
+        int melhorScore =
+                recomendados.stream().mapToInt(i -> calcularPontuacao(i, buscar)).max().orElse(0);
+
+        double compatibilidadeMedia =
+                SCORE_MAXIMO == 0
+                        ? 0
+                        : (scoreMedio * 100)
+                        / SCORE_MAXIMO;
+
+        double melhorCompatibilidade =
+                SCORE_MAXIMO == 0
+                        ? 0
+                        : (melhorScore * 100.0)
+                        / SCORE_MAXIMO;
+
+        System.out.println();
+
+        System.out.println(
+                "===== MÉTRICAS IA ====="
+        );
+        System.out.printf("Imóveis analisados: %d%n", totalImoveis);
+        System.out.printf("Recomendados: %d%n", encontrados);
+        System.out.printf("Cobertura: %.2f%%%n", cobertura);
+        System.out.printf("Compatibilidade média: %.2f%%%n", compatibilidadeMedia);
+        System.out.printf("Melhor compatibilidade: %.2f%%%n", melhorCompatibilidade);
+        System.out.printf("Score médio: %.2f%n", scoreMedio);
+        System.out.printf(
+                "Melhor score: %d%n",
+                melhorScore
+        );
+        System.out.printf(
+                "Tempo busca: %d ms%n",
+                tempoBusca
+        );
+        System.out.println(
+                "======================="
+        );
+    }
+
     private String normalizar(String texto) {
 
         if (texto == null) {
@@ -180,8 +249,14 @@ public class ImovelServiceImp implements ImovelService {
         }
 
         return java.text.Normalizer
-                .normalize(texto, java.text.Normalizer.Form.NFD)
-                .replaceAll("[^\\p{ASCII}]", "")
+                .normalize(
+                        texto,
+                        java.text.Normalizer.Form.NFD
+                )
+                .replaceAll(
+                        "[^\\p{ASCII}]",
+                        ""
+                )
                 .toUpperCase()
                 .trim();
     }
